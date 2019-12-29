@@ -1608,7 +1608,7 @@ Selection.prototype = selection.prototype = {
 var select = function(selector) {
   return typeof selector === "string"
       ? new Selection([[document.querySelector(selector)]], [document.documentElement])
-      : new Selection([[selector]], root);
+      : new  ([[selector]], root);
 };
 
 var selectAll = function(selector) {

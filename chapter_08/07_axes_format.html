@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Test of formatted axis values</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v5.js"></script>
 		<style type="text/css">
 			/* No style rules here yet */
 		</style>
@@ -14,7 +14,7 @@
 			//Width and height
 			var w = 500;
 			var h = 300;
-			var padding = 30;
+			var padding = 50;
 			
 			/*
 			//Static dataset
@@ -55,13 +55,13 @@
 			var xAxis = d3.axisBottom()
 							  .scale(xScale)
 							  .ticks(5)
-							  .tickFormat(formatAsPercentage);
+							  // .tickFormat(formatAsPercentage);
 
 			//Define Y axis
 			var yAxis = d3.axisLeft()
 							  .scale(yScale)
 							  .ticks(5)
-							  .tickFormat(formatAsPercentage);
+							  // .tickFormat(formatAsPercentage);
 
 			//Create SVG element
 			var svg = d3.select("body")

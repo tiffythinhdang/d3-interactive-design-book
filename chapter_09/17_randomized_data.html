@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Transitioning to randomized data values</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v5.js"></script>
 		<style type="text/css">
 			/* No style rules here yet */		
 		</style>
@@ -67,14 +67,21 @@
 			   .attr("x", function(d, i) {
 			   		return xScale(i) + xScale.bandwidth() / 2;
 			   })
-			   .attr("y", function(d) {
-			   		return h - yScale(d) + 14;
-			   })
+			   .attr("y", function (d) {
+          //  debugger
+          if (d < 2) {
+            return h - yScale(d) - 5;
+          }
+          return h - yScale(d) + 14;
+         })
 			   .attr("font-family", "sans-serif")
 			   .attr("font-size", "11px")
-			   .attr("fill", "white");
-
-
+			   .attr("fill", function (d) {
+          if (d < 2) {
+            return "black";
+          }
+            return "white";
+        })
 
 
 			//On click, update with new data			
@@ -122,9 +129,18 @@
 					   		return xScale(i) + xScale.bandwidth() / 2;
 					   })
 					   .attr("y", function(d) {
+              //  debugger
+                if (d < 2) {
+                  return h - yScale(d) - 5;
+                }
 					   		return h - yScale(d) + 14;
-					   });
-					   				
+					   })
+					   .attr("fill", function (d) {
+               if (d < 2) {
+                 return "black";
+               }
+               return "white";
+             });
 				});
 
 			

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>D3: Removing values from a chart</title>
-		<script type="text/javascript" src="../d3.js"></script>
+		<script src="https://d3js.org/d3.v5.js"></script>
 		<style type="text/css">
 			/* No style rules here yet */
 		</style>
@@ -115,7 +115,10 @@
 						})
 						.attr("y", function(d) {				//Set new y position, based on the updated yScale
 							return h - yScale(d);
-						})
+            })
+            .attr("fill", function (d) {				//Sets the fill value
+              return "rgb(0, 0, " + Math.round(d * 10) + ")";
+            })
 						.attr("width", xScale.bandwidth())		//Set new width value, based on the updated xScale
 						.attr("height", function(d) {			//Set new height value, based on the updated yScale
 							return yScale(d);
@@ -131,24 +134,56 @@
 
 
 					//Update all labels
-					//
+					let labels = svg.selectAll("text")
+            .data(dataset);
+
+          labels.enter()
+            .append("text")
+            .attr("x", w)
+            .attr("y", function (d) {
+              return h - yScale(d) + 14;
+            })
+
+            .merge(labels)
+            .transition()
+            .duration(500)
+            .text(function (d) {
+              return d;
+            })
+            .attr("x", function (d, i) {
+              return xScale(i) + xScale.bandwidth() / 2;
+            })
+            .attr("y", function (d) {
+              return h - yScale(d) + 14;
+            })
+            .attr("text-anchor", "middle")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "11px")
+            .attr("fill", "white");
+
+          labels.exit()				//References the exit selection (a subset of the update selection)
+            .transition()		//Initiates a transition on the one element we're deleting
+            .duration(500)
+            .attr("x", w)		//Move past the right edge of the SVG
+            .remove();
+        });
 					//Exercise: Modify this code to remove the correct label each time!
 					//
-					svg.selectAll("text")
-					   .data(dataset)
-					   .transition()
-					   .duration(500)
-					   .text(function(d) {
-					   		return d;
-					   })
-					   .attr("x", function(d, i) {
-							return xScale(i) + xScale.bandwidth() / 2;
-					   })
-					   .attr("y", function(d) {
-							return h - yScale(d) + 14;
-					   });
+					// svg.selectAll("text")
+					//    .data(dataset)
+					//    .transition()
+					//    .duration(500)
+					//    .text(function(d) {
+					//    		return d;
+					//    })
+					//    .attr("x", function(d, i) {
+					// 		return xScale(i) + xScale.bandwidth() / 2;
+					//    })
+					//    .attr("y", function(d) {
+					// 		return h - yScale(d) + 14;
+					//    });
 
-				});
+				// });
 
 			
 		</script>
